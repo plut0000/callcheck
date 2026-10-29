@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body { background: #FAFAF7; color: #17181A; font-feature-settings: "ss01", "cv11"; }
+.tnum { font-variant-numeric: tabular-nums; }
+@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
+.fade-in { animation: fadeIn .25s ease-out both; }
+@keyframes blink { 50% { opacity: .25 } }
+.blink { animation: blink 1.2s steps(2) infinite; }

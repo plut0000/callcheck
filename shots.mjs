@@ -1,0 +1,25 @@
+import { chromium } from "playwright";
+const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1360, height: 900 } });
+p.on("pageerror", e => console.log("PAGEERR", e.message));
+p.on("response", r => { if (r.status() >= 400) console.log("BAD", r.status(), r.url()); });
+const run = async (tag, industry, scenario) => {
+  await p.click("text=New test"); await p.waitForTimeout(300);
+  if (industry) await p.selectOption("#industry", industry);
+  if (scenario) await p.click(`[data-scenario=${scenario}]`);
+  if (await p.$("[data-mode=demo]")) await p.click("[data-mode=demo]");
+  await p.check("#consent");
+  if (!(await p.textContent("main")).includes("No phone call is placed")) throw new Error("not in demo mode");
+  await p.screenshot({ path: `shots/onboarding-${tag}.png`, fullPage: true });
+  await p.click("text=Run test call");
+  await p.waitForTimeout(7000);
+  await p.screenshot({ path: `shots/live-call-${tag}.png`, fullPage: true });
+  await p.waitForSelector("#coaching", { timeout: 90000 }); await p.waitForTimeout(800);
+  await p.screenshot({ path: `shots/scorecard-${tag}.png`, fullPage: true });
+  await p.locator("#tips").screenshot({ path: `shots/tips-${tag}.png` });
+  console.log(tag, "|", (await p.textContent("#scorecard")).slice(0, 220));
+};
+await p.goto("http://localhost:3123"); await p.evaluate(() => localStorage.clear()); await p.reload(); await p.waitForTimeout(600);
+await p.screenshot({ path: "shots/landing.png", fullPage: true });
+await run("barber", "barber", "hours");
+await run("dealership", "dealership", "service");
+await b.close();
