@@ -3,10 +3,15 @@ const config: Config = {
   content: ["./app/**/*.{ts,tsx}", "./lib/**/*.{ts,tsx}"],
   theme: {
     extend: {
-      fontFamily: { sans: ["var(--font-sans)", "system-ui", "sans-serif"], serif: ["var(--font-serif)", "Georgia", "serif"] },
+      fontFamily: {
+        // SF Pro on Apple devices, Inter everywhere else.
+        sans: ["-apple-system", "BlinkMacSystemFont", '"SF Pro Text"', "var(--font-sans)", "system-ui", "sans-serif"],
+      },
       colors: {
-        paper: "#FAFAF7", ink: "#17181A", muted: "#6B6B66", line: "#E4E3DD",
-        accent: { DEFAULT: "#1F4D3A", soft: "#EEF3EF" }, warn: "#9A5B13", bad: "#9B2C2C",
+        canvas: "#F5F5F7", ink: "#1D1D1F", muted: "#6E6E73", line: "#D2D2D7",
+        accent: { DEFAULT: "#0B7A4B", dark: "#08623C", soft: "#E8F4EE" },
+        warn: { DEFAULT: "#A35200", soft: "#FFF4E5" },
+        bad: { DEFAULT: "#C4281C", soft: "#FDECEA" },
       },
     },
   },
