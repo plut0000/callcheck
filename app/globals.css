@@ -1,9 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-body { background: #FAFAF7; color: #17181A; font-feature-settings: "ss01", "cv11"; }
+body { background: #fff; color: #1D1D1F; letter-spacing: -0.011em; -webkit-font-smoothing: antialiased; }
 .tnum { font-variant-numeric: tabular-nums; }
-@keyframes fadeIn { from { opacity: 0 } to { opacity: 1 } }
-.fade-in { animation: fadeIn .25s ease-out both; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px) } to { opacity: 1; transform: none } }
+.fade-in { animation: fadeIn .3s ease-out both; }
 @keyframes blink { 50% { opacity: .25 } }
 .blink { animation: blink 1.2s steps(2) infinite; }
+@media (prefers-reduced-motion: reduce) { .fade-in, .blink { animation: none; } }
